@@ -1,6 +1,5 @@
 # project/app/db.py
- 
- 
+
 import logging  # new
 import os
  

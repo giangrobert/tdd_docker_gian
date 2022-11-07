@@ -9,4 +9,4 @@ class SummaryPayloadSchema(BaseModel):
  
  
 class SummaryResponseSchema(SummaryPayloadSchema):
-    id: int
+    id: int     

@@ -1,10 +1,11 @@
 # project/tests/test_ping.py
 from app import main
 
+
 def test_ping(test_app):
     # Given
     # test_app
-    
+
     # When
     response = test_app.get("/ping")
 

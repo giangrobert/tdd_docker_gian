@@ -28,6 +28,8 @@ async def create_summary(payload: SummaryPayloadSchema) -> SummaryResponseSchema
 @router.get("/{id}/", response_model=SummarySchema)
 async def read_summary(id: int) -> SummarySchema:
     summary = await crud.get(id)
+    if id == 0:
+        raise HTTPException(status_code=422, detail="Estás seguro que ingresaste un ID CORRECTO")
     if not summary:
         raise HTTPException(status_code=404, detail="Summary not found")
 
@@ -53,8 +55,7 @@ async def delete_summary(id: int) -> SummaryResponseSchema:
 
 @router.put("/{id}/", response_model=SummarySchema)
 async def update_summary(payload: SummaryUpdatePayloadSchema, id: int = Path(..., gt=0)) -> SummarySchema:
-    if id!=0 :
-        summary = await crud.put(id, payload)
+    summary = await crud.put(id, payload)
     if not summary:
         raise HTTPException(status_code=404, detail="Summary not found")
     return summary

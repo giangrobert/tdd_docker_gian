@@ -28,6 +28,9 @@ async def create_summary(payload: SummaryPayloadSchema) -> SummaryResponseSchema
 @router.get("/{id}/", response_model=SummarySchema)
 async def read_summary(id: int = Path(..., gt=0)) -> SummarySchema:
     summary = await crud.get(id)
+    # if id == 0:
+    #     raise HTTPException(status_code=404, detail="Summary not found")
+
     if not summary:
         raise HTTPException(status_code=404, detail="Summary not found")
 

@@ -1,11 +1,11 @@
 # project/app/models/pydantic.py
 
 
-from pydantic import BaseModel
+from pydantic import AnyHttpUrl, BaseModel
 
 
 class SummaryPayloadSchema(BaseModel):
-    url: str
+    url: AnyHttpUrl
 
 
 class SummaryResponseSchema(SummaryPayloadSchema):

@@ -26,10 +26,8 @@ async def create_summary(payload: SummaryPayloadSchema) -> SummaryResponseSchema
 
 
 @router.get("/{id}/", response_model=SummarySchema)
-async def read_summary(id: int) -> SummarySchema:
+async def read_summary(id: int = Path(...,gt=0)) -> SummarySchema:
     summary = await crud.get(id)
-    if id == 0:
-        raise HTTPException(status_code=422, detail="Estás seguro que ingresaste un ID CORRECTO")
     if not summary:
         raise HTTPException(status_code=404, detail="Summary not found")
 
@@ -44,7 +42,8 @@ async def read_all_summaries() -> List[SummarySchema]:
 @router.delete("/{id}/", response_model=SummaryResponseSchema)
 async def delete_summary(id: int) -> SummaryResponseSchema:
     summary = await crud.get(id)
-
+    if id == 0:
+        raise HTTPException(status_code=422, detail="Summary not found")
     if not summary:
         raise HTTPException(status_code=404, detail="Summary not found")
 
